@@ -1,0 +1,180 @@
+<!-- 
+  @file app.html
+  @description Main application template for Ford GSHT3 Manufacturing Form SPA with Bootstrap
+-->
+
+<div class="app-container">
+  <!-- Header Section -->
+  <header class="app-header navbar navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+      <div class="d-flex align-items-center w-100">
+        <!-- Left: Ford Logo + MSDB -->
+        <div class="d-flex align-items-center me-3">
+          <div class="ford-logo-oval me-2">
+            <span class="ford-text">FORD</span>
+          </div>
+          <span class="msdb-text">MSDB</span>
+        </div>
+
+        <!-- Center: Title -->
+        <div class="flex-grow-1 text-center">
+          <h1 class="page-title mb-0">Create GSHT3</h1>
+        </div>
+
+        <!-- Right: Confidential Badge -->
+        <div class="ms-3">
+          <span class="badge bg-warning text-dark confidential-badge">Confidential</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="app-main">
+    <div class="container-fluid pt-3">
+      <form (ngSubmit)="onSubmit()" #formElement="ngForm">
+        
+        <!-- Cut Sections -->
+        <div class="cut-sections-container" *ngIf="formData">
+          <div *ngFor="let cutSection of formData.cutSections; let i = index; trackBy: trackByIndex"
+               class="card mb-3 cut-section-wrapper">
+            <app-cut-section 
+              [cutSection]="cutSection"
+              [sectionIndex]="i"
+              (updateSection)="onCutSectionUpdate(i, $event)"
+              (calculateOperation)="onCalculateOperation(i)"
+              (clearOperation)="onClearOperation(i)">
+            </app-cut-section>
+          </div>
+        </div>
+
+        <!-- Offal Source Section -->
+        <div class="card mt-4 offal-section">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+              <button type="button" (click)="toggleOffalSection()" class="btn btn-link p-0">
+                {{ showOffalSection ? '▼' : '▶' }} Offal Source Used
+              </button>
+              <small class="text-muted ms-2">(only used in Offal Spec)</small>
+            </div>
+            <button type="button" (click)="onSave()" class="btn btn-success" style="padding: 8px 24px; font-weight: 500; font-size: 14px; border-radius: 4px;">
+              Save
+            </button>
+          </div>
+
+          <div *ngIf="showOffalSection" class="card-body p-0">
+            <table class="table table-bordered table-sm mb-0" *ngIf="formData">
+              <tbody>
+                <!-- Offal Header Row -->
+                <tr class="header-row">
+                  <td class="col-header text-center">180) Offal Source Spec</td>
+                  <td class="col-header text-center">181) Clear Offal Source</td>
+                  <td class="col-header text-center">182) Source Part / Item #</td>
+                  <td class="col-header text-center">183) B-No</td>
+                  <td class="col-header text-center">185) Parts/Offal</td>
+                </tr>
+
+                <!-- Offal Data Row -->
+                <tr class="data-row">
+                  <td>
+                    <div style="display: flex; gap: 4px; align-items: center;">
+                      <button type="button" class="btn btn-sm btn-dark" style="white-space: nowrap;">
+                        none
+                      </button>
+                      <input type="text" [(ngModel)]="formData.offalSource.offalSourceSpec" 
+                             name="offalSourceSpec"
+                             class="form-control form-control-sm"
+                             (change)="onOffalSourceUpdate()"
+                             placeholder="">
+                    </div>
+                  </td>
+                  <td>
+                    <div style="display: flex; gap: 4px; align-items: center;">
+                      <button type="button" (click)="formData.offalSource.clearOffalSource = ''; onOffalSourceUpdate()" 
+                              class="btn btn-sm btn-dark" style="white-space: nowrap;">
+                        Clear
+                      </button>
+                      <input type="text" [(ngModel)]="formData.offalSource.clearOffalSource" 
+                             name="clearOffalSource"
+                             class="form-control form-control-sm"
+                             (change)="onOffalSourceUpdate()"
+                             placeholder="">
+                    </div>
+                  </td>
+                  <td>
+                    <input type="text" [(ngModel)]="formData.offalSource.sourcePartItemNumber" 
+                           name="sourcePartItemNumber"
+                           class="form-control form-control-sm"
+                           (change)="onOffalSourceUpdate()"
+                           placeholder="">
+                  </td>
+                  <td>
+                    <input type="text" [(ngModel)]="formData.offalSource.bNumber" 
+                           name="bNumber"
+                           class="form-control form-control-sm"
+                           (change)="onOffalSourceUpdate()"
+                           placeholder="">
+                  </td>
+                  <td>
+                    <input type="text" [(ngModel)]="formData.offalSource.partsOffal" 
+                           name="partsOffal"
+                           class="form-control form-control-sm"
+                           (change)="onOffalSourceUpdate()"
+                           placeholder="">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Top and Bottom Navigation -->
+        <div class="navigation-area" style="margin: 20px 0; display: flex; gap: 16px; justify-content: flex-end;">
+          <button type="button" (click)="scrollToTop()" class="btn btn-link" style="color: #0066cc; font-size: 14px; padding: 4px 8px;">
+            ↑ Top
+          </button>
+          <button type="button" (click)="scrollToBottom()" class="btn btn-link" style="color: #0066cc; font-size: 14px; padding: 4px 8px;">
+            ↓ Bottom
+          </button>
+        </div>
+
+        <!-- Form Information -->
+        <div class="form-info" *ngIf="formData">
+          <div class="info-row">
+            <div class="info-item">
+              <span class="info-label">Form ID:</span>
+              <span class="info-value">{{ formData.id }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Status:</span>
+              <span class="info-value">{{ formData.status }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Last Modified:</span>
+              <span class="info-value">{{ formData.lastModifiedDate | date:'short' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Area -->
+        <div class="form-submit-area">
+          <button type="submit" class="btn btn-submit" title="Submit form">
+            Submit Form
+          </button>
+          <button type="button" (click)="exportFormData()" class="btn btn-export" title="Export as JSON">
+            Export as JSON
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <span>© 2026 Ford Manufacturing System - GSHT3 Form Application</span>
+      </div>
+    </div>
+  </footer>
+</div>
