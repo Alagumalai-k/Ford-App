@@ -1,0 +1,14 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/ford-gsht3-app/browser",
+  "framework": "angular",
+  "env": {
+    "ANGULAR_CLI_ANALYTICS": "false"
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
