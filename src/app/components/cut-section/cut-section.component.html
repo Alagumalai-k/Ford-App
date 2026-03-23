@@ -84,7 +84,7 @@
         <td>
           <div style="display: flex; flex-direction: column; gap: 4px; align-items: stretch;">
             <input type="number" [(ngModel)]="cutSection.operations[0].rawMaterialBlankWeight" (change)="onOperationChange(0)" class="form-control form-control-sm">
-            <button type="button" (click)="onCalculate(0); onClear(0)" class="btn btn-dark" style="padding: 3px 8px; font-size: 9px; height: 22px; width: 100%;">Calculate Rem</button>
+            <button type="button" (click)="onCalculate(0); onClear(0)" class="btn btn-primary" style="padding: 3px 8px; font-size: 9px; height: 22px; width: 100%;">Calculate Rem</button>
           </div>
         </td>
         <td><input type="number" [(ngModel)]="cutSection.operations[0].realBlankWeight" (change)="onOperationChange(0)" class="form-control form-control-sm"></td>
