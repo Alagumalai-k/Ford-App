@@ -268,8 +268,16 @@ $accent-teal: #0891b2;
           display: flex;
           justify-content: center;
           align-items: center;
+          gap: 6px;
 
-          .creator-text {
+          .created-by-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1f2937;
+            letter-spacing: 0.3px;
+          }
+
+          .creator-link {
             font-size: 16px;
             font-weight: 700;
             color: #1e293b;
@@ -278,6 +286,21 @@ $accent-teal: #0891b2;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 2px;
+            border-bottom: 2px solid transparent;
+
+            &:hover {
+              border-bottom-color: $accent-blue;
+              filter: brightness(1.1);
+            }
+
+            &:active {
+              transform: scale(0.98);
+            }
           }
         }
       }
