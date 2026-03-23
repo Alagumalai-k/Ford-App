@@ -137,34 +137,6 @@
             ↓ Bottom
           </button>
         </div>
-
-        <!-- Form Information -->
-        <div class="form-info" *ngIf="formData">
-          <div class="info-row">
-            <div class="info-item">
-              <span class="info-label">Form ID:</span>
-              <span class="info-value">{{ formData.id }}</span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">Status:</span>
-              <span class="info-value">{{ formData.status }}</span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">Last Modified:</span>
-              <span class="info-value">{{ formData.lastModifiedDate | date:'short' }}</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Submit Area -->
-        <div class="form-submit-area">
-          <button type="submit" class="btn btn-submit" title="Submit form">
-            Submit Form
-          </button>
-          <button type="button" (click)="exportFormData()" class="btn btn-export" title="Export as JSON">
-            Export as JSON
-          </button>
-        </div>
       </form>
     </div>
   </main>
