@@ -26,7 +26,7 @@ import { GSHT3Form, CutSection, OffalSource } from './models/gsht3-form.model';
 })
 export class App implements OnInit {
   formData: GSHT3Form | null = null;
-  showOffalSection = false;
+  showOffalSection = true;
   selectedView: 'form' | 'preview' = 'form';
 
   constructor(private formService: GSHT3FormService) {}
